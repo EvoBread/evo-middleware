@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<configuration>
+	<!-- 使用spring配置文件中的变量 -->
+    <springProperty scope="context" name="APP_NAME" source="spring.application.name" />
+<!--    <springProperty scope="context" name="logKeepTime" source="evo.log.keepTime" />-->
+<!--	<springProperty scope="context" name="LOG_PATH" source="evo.log.dir" />-->
+<!--    <conversionRule conversionWord="ip" converterClass="com.bread.logback.IpConverter" />-->
+
+<!--    <property name="LOG_PATH" value="${LOG_PATH}" />-->
+<!--    <property name="LOG_FILE" value="${APP_NAME:-spring}" />-->
+<!--    <property name="logKeepTime" value="${logKeepTime}" />-->
+
+	<conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter"/>
+	<conversionRule conversionWord="wex"
+					converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter"/>
+	<conversionRule conversionWord="wEx"
+					converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter"/>
+
+	<!-- 输出日志到控制台 -->
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+<!--			<pattern>[%ip] %d{HH:mm:ss.SSS} {%t} %-5level %logger{36} %line - %msg%n</pattern>-->
+			<pattern>%d{HH:mm:ss.SSS} {%t} %-5level %logger{36} %line - %msg%n</pattern>
+		</layout>
+	</appender>
+
+	<!-- 按天输出日志到文件-->
+<!--	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+<!--		<file>${LOG_PATH}/${LOG_FILE}.log</file>-->
+<!--		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+<!--			daily rollover-->
+<!--			<FileNamePattern>${LOG_PATH}/${LOG_FILE}.%d{yyyy-MM-dd}.log</FileNamePattern>-->
+<!--			keep 30 days' worth of history-->
+<!--			<maxHistory>${logKeepTime}</maxHistory>-->
+<!--		</rollingPolicy>-->
+<!--		<encoder>-->
+<!--			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} {%t} %-5level [%ip] %logger{36} %line - %msg%n-->
+<!--			</pattern>-->
+<!--			<charset>UTF-8</charset>-->
+<!--		</encoder>-->
+<!--	</appender>-->
+<!--    <logger name="org.eclipse.jetty" level="INFO" />-->
+<!--    <logger name="sdk.biz.err" level="OFF" />-->
+
+    <!-- 生产环境日志配置 -->
+<!--	<springProfile name="production">-->
+<!--		<logger name="com.bread" level="INFO" />-->
+<!--		<logger name="org.apache.ibatis.session.AutoMappingUnknownColumnBehavior" level="ERROR" />-->
+<!--		<root level="WARN">-->
+<!--			<appender-ref ref="FILE" />-->
+<!--		</root>-->
+<!--	</springProfile>-->
+
+    <!-- 开发环境日志配置 -->
+	<springProfile name="develop">
+		<logger name="com.evo" level="DEBUG"/>
+		<root level="INFO">
+			<appender-ref ref="CONSOLE" />
+		</root>
+	</springProfile>
+
+</configuration>
