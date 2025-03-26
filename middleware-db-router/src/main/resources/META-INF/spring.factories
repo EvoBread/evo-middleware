@@ -1,0 +1,1 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.evo.middleware.db.router.config.DataSourceAutoConfig
